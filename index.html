@@ -166,9 +166,9 @@ h1{background:linear-gradient(103deg,var(--ink) 30%,var(--accent) 130%);
     </div>
     <div class="stats">
       <div class="stat"><b>9</b><span>YEARS BUILDING</span></div>
-      <div class="stat"><b>5</b><span>LIVE CLIENT SITES</span></div>
+      <div class="stat"><b>15+</b><span>LIVE CLIENT SITES</span></div>
       <div class="stat"><b>11</b><span>COUNTRIES SERVED</span></div>
-      <div class="stat"><b>3</b><span>PAYMENT GATEWAYS</span></div>
+      <div class="stat"><b>8+</b><span>PAYMENT GATEWAYS</span></div>
     </div>
   </div>
 </div>
@@ -294,11 +294,13 @@ h1{background:linear-gradient(103deg,var(--ink) 30%,var(--accent) 130%);
 
   if(reduce) return;
   document.querySelectorAll('.stat b').forEach(function(b){
-    var end=parseInt(b.textContent,10); if(isNaN(end)) return;
+    var raw=b.textContent.trim();
+    var m=raw.match(/^(\d+)(\D*)$/); if(!m) return;
+    var end=parseInt(m[1],10), suffix=m[2]||'';
     var t0=null, dur=1100;
     function step(ts){ if(!t0)t0=ts;
       var p=Math.min((ts-t0)/dur,1), e=1-Math.pow(1-p,3);
-      b.textContent=Math.round(end*e)+(p===1&&window.__suffix?window.__suffix:'');
+      b.textContent=Math.round(end*e)+(p===1?suffix:'');
       if(p<1) requestAnimationFrame(step);
     }
     b.textContent='0'; setTimeout(function(){requestAnimationFrame(step);},420);
